@@ -138,6 +138,7 @@ function changeEventColor(event: EventApi) {
   const colors = ["#ff5733", "#33ff57", "#3357ff", "#ff33d4", "#f4c542"];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   event.setExtendedProp("bgColor", randomColor);
+  event.setExtendedProp("textColor", "white");
 }
 function handleDateSelect(selectInfo: any) {
   editingEvent.value = null;
@@ -518,6 +519,18 @@ thead tr {
 .selected-event .fc-event-main i {
   color: #3b86ff !important;
 }
+.selected-event .fc-event-main .item {
+  background: #f5f6fa;
+  border: 1px solid #3b86ff;
+}
+.selected-event .fc-event-main .item .delete {
+  background-color: #3b86ff;
+  border: 2px solid #3b86ff;
+}
+.selected-event .fc-event-main .item .change {
+  background-color: #3b86ff;
+  border: 2px solid #3b86ff;
+}
 .fc-daygrid-dot-event {
   background-color: #3b86ff;
   font-size: 13px;
@@ -525,6 +538,7 @@ thead tr {
   padding: 0;
   border-radius: 4px;
 }
+
 .delete {
   width: 20px;
   height: 20px;
