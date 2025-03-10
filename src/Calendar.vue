@@ -347,9 +347,6 @@ thead tr {
   padding-top: 15px;
   padding-right: 15px;
 }
-.fc .fc-highlight {
-  background: #eaf0f4;
-}
 .fc-daygrid table tbody .fc-day {
   width: 162px;
   height: 135px;
@@ -577,6 +574,7 @@ thead tr {
   padding: 7px 14px;
   border-radius: 4px;
   font-style: normal;
+  background: #3b86ff;
 }
 .item i {
   font-style: normal;
@@ -584,5 +582,9 @@ thead tr {
 .fc-h-event {
   border: 1px solid #d7dae2;
   background: transparent;
+}
+.fc .fc-highlight {
+  background: transparent !important;
+  box-shadow: 0px 3px 6px #00000029;
 }
 </style>
