@@ -137,7 +137,6 @@ function deleteEvent(event: EventApi) {
 function changeEventColor(event: EventApi) {
   const colors = ["#ff5733", "#33ff57", "#3357ff", "#ff33d4", "#f4c542"];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
   event.setExtendedProp("bgColor", randomColor);
 }
 function handleDateSelect(selectInfo: any) {
@@ -146,13 +145,15 @@ function handleDateSelect(selectInfo: any) {
   eventTitle.value = "";
   isModalOpen.value = true;
   removeSelectedCellClass();
-  const cell = selectInfo.jsEvent.target.closest(".fc-daygrid-day");
+  const cell = selectInfo.jsEvent?.target.closest(
+    ".fc-daygrid-day, .fc-timegrid-slot"
+  );
   if (cell) {
     cell.classList.add("selected-cell");
+    const rect = cell.getBoundingClientRect();
+    modalX.value = rect.left + window.scrollX / 2 - 200;
+    modalY.value = rect.top + rect.height + window.scrollY - 21;
   }
-  const rect = cell.getBoundingClientRect();
-  modalX.value = rect.left + window.scrollX / 2 - 200;
-  modalY.value = rect.top + rect.height + window.scrollY - 21;
 }
 function handleSaveEvent(eventData: {
   title: string;
@@ -162,22 +163,27 @@ function handleSaveEvent(eventData: {
 }) {
   if (editingEvent.value) {
     editingEvent.value.setProp("title", eventData.title);
-    const [hours, minutes] = eventData.time.split(":").map(Number);
-    const [year, month, day] = eventData.selectedDate.split("-").map(Number);
-    const newStart = new Date(year, month - 1, day, hours, minutes);
+    const newStart = new Date(
+      `${eventData.selectedDate}T${eventData.time || "00:00"}:00`
+    );
     editingEvent.value.setStart(newStart);
     editingEvent.value.setExtendedProp("note", eventData.note);
   } else if (selectedInfo.value) {
     const calendarApi = selectedInfo.value.view?.calendar;
     if (calendarApi) {
-      const [hours, minutes] = eventData.time.split(":").map(Number);
-      const [year, month, day] = eventData.selectedDate.split("-").map(Number);
-      const newStart = new Date(year, month - 1, day, hours, minutes);
+      let newStart;
+      if (selectedInfo.value.allDay) {
+        newStart = eventData.selectedDate;
+      } else {
+        newStart = new Date(
+          `${eventData.selectedDate}T${eventData.time || "00:00"}:00`
+        );
+      }
       calendarApi.addEvent({
         id: String(Date.now()),
         title: eventData.title.trim(),
         start: newStart,
-        allDay: false,
+        allDay: selectedInfo.value.allDay,
         extendedProps: { note: eventData.note },
       });
     }
@@ -187,6 +193,7 @@ function handleSaveEvent(eventData: {
   editingEvent.value = null;
   removeSelectedCellClass();
 }
+
 function closeModal() {
   isModalOpen.value = false;
   selectedInfo.value = null;
@@ -564,7 +571,7 @@ thead tr {
 .selected-event i {
   color: #3b86ff !important;
 }
-.item {
+.fc-timeGridDay-view .item {
   width: 100%;
   height: 100%;
   padding: 7px 14px;
