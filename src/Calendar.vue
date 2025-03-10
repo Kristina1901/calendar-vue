@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from "vue";
+import { ref, computed, nextTick, onMounted, onUnmounted } from "vue";
 import Modal from "./components/Modal.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -122,7 +122,6 @@ const formattedEventData = computed(() => {
     note: editingEvent.value.extendedProps?.note || "",
   };
 });
-
 function removeSelectedCellClass() {
   nextTick(() => {
     document.querySelectorAll(".selected-cell").forEach((cell) => {
@@ -183,7 +182,6 @@ function handleSaveEvent(eventData: {
       });
     }
   }
-
   isModalOpen.value = false;
   selectedInfo.value = null;
   editingEvent.value = null;
@@ -206,6 +204,30 @@ function handleEventClick(clickInfo: EventClickArg) {
 }
 function handleEvents(events: EventApi[]) {
   currentEvents.value = events;
+}
+onMounted(() => {
+  document.addEventListener("click", handleToolbarClick);
+});
+onUnmounted(() => {
+  document.removeEventListener("click", handleToolbarClick);
+});
+function handleToolbarClick(event: MouseEvent) {
+  const toolbarButtons = [
+    ".fc-today-button",
+    ".fc-prev-button",
+    ".fc-next-button",
+    ".fc-dayGridMonth-button",
+    ".fc-timeGridWeek-button",
+    ".fc-timeGridDay-button",
+    ".fc-listWeek-button",
+  ];
+  if (
+    toolbarButtons.some((selector) =>
+      (event.target as HTMLElement).closest(selector)
+    )
+  ) {
+    closeModal();
+  }
 }
 </script>
 <style lang="css">
