@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <label>
+    <label class="label">
       <input
         v-model="formData.title"
         type="text"
@@ -10,7 +10,7 @@
         required
       />
     </label>
-    <label class="input-wrapper">
+    <label class="input-wrapper label">
       <span class="input-label" v-if="!formData.selectedDate">event date</span>
       <input
         v-model="formData.selectedDate"
@@ -19,7 +19,7 @@
         required
       />
     </label>
-    <label class="input-wrapper">
+    <label class="input-wrapper label">
       <span class="input-label" v-if="!formData.time">event time</span>
       <input
         v-model="formData.time"
@@ -28,7 +28,7 @@
         required
       />
     </label>
-    <label>
+    <label class="label">
       <input
         v-model="formData.note"
         type="text"
@@ -88,6 +88,10 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>
+.label {
+  display: block;
+  border-bottom: 1px solid #d6d6d6;
+}
 input {
   font-size: 9px;
   color: #43425d;
@@ -106,7 +110,6 @@ input:focus {
   font-size: 9px;
   color: #43425d;
   border: none;
-  border-bottom: 1px solid #d6d6d6;
   width: 100%;
 }
 .input-wrapper {
@@ -132,7 +135,10 @@ input:focus {
   height: 100%;
   color: #d6d6d6;
   font-weight: 400;
+  display: flex;
+  align-items: center;
 }
+
 .input-wrapper input:valid + .input-label {
   opacity: 0;
 }
@@ -140,7 +146,6 @@ input:focus {
   display: block;
   height: 28px;
   border: none;
-  border-bottom: 1px solid #d6d6d6;
   color: #43425d;
   background: transparent;
   caret-color: inherit;

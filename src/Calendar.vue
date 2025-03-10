@@ -152,7 +152,7 @@ function handleDateSelect(selectInfo: any) {
     cell.classList.add("selected-cell");
   }
   const rect = cell.getBoundingClientRect();
-  modalX.value = rect.left + window.scrollX - 390;
+  modalX.value = rect.left + window.scrollX / 2 - 50;
   modalY.value = rect.top + rect.height + window.scrollY - 21;
 }
 function handleSaveEvent(eventData: {
@@ -549,5 +549,6 @@ thead tr {
   width: 100%;
   height: 100%;
   padding: 7px 14px;
+  border-radius: 4px;
 }
 </style>
