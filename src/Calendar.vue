@@ -166,9 +166,6 @@ function handleSaveEvent(eventData: {
     const [hours, minutes] = eventData.time.split(":").map(Number);
     const [year, month, day] = eventData.selectedDate.split("-").map(Number);
     const newStart = new Date(year, month - 1, day, hours, minutes);
-
-    console.log("Saving event at:", newStart.toISOString());
-
     editingEvent.value.setStart(newStart);
     editingEvent.value.setExtendedProp("note", eventData.note);
   } else if (selectedInfo.value) {
