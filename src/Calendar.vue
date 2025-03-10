@@ -571,10 +571,18 @@ thead tr {
 .selected-event i {
   color: #3b86ff !important;
 }
-.fc-timeGridDay-view .item {
+.item {
   width: 100%;
   height: 100%;
   padding: 7px 14px;
   border-radius: 4px;
+  font-style: normal;
+}
+.item i {
+  font-style: normal;
+}
+.fc-h-event {
+  border: 1px solid #d7dae2;
+  background: transparent;
 }
 </style>
