@@ -40,16 +40,17 @@
     </label>
     <div class="buttons">
       <button type="button" @click="$emit('cancel')" class="cancel">
-        Cancel
+        {{ isEditing ? "Discard" : "Cancel" }}
       </button>
-      <button type="submit" class="save">Save</button>
+      <button type="submit" class="save">
+        {{ isEditing ? "Save" : "Save" }}
+      </button>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-
+import { ref, computed, watch } from "vue";
 const props = defineProps<{
   eventData: {
     title: string;
@@ -58,7 +59,6 @@ const props = defineProps<{
     note?: string;
   };
 }>();
-
 const emit = defineEmits(["save", "cancel"]);
 const formData = ref({
   title: "",
@@ -66,6 +66,7 @@ const formData = ref({
   time: "",
   note: "",
 });
+const isEditing = computed(() => !!props.eventData.title);
 watch(
   () => props.eventData,
   (newData) => {

@@ -206,8 +206,8 @@ function handleEventClick(clickInfo: EventClickArg) {
   eventTitle.value = clickInfo.event.title;
   isModalOpen.value = true;
   removeSelectedCellClass();
-  modalX.value = clickInfo.jsEvent.clientX - 460;
-  modalY.value = clickInfo.jsEvent.clientY + 20;
+  modalX.value = clickInfo.jsEvent.clientX - 250;
+  modalY.value = clickInfo.jsEvent.clientY + 120;
   clickInfo.el.classList.add("selected-event");
 }
 function handleEvents(events: EventApi[]) {
@@ -356,7 +356,7 @@ thead tr {
   background: #f5f6fa;
 }
 .fc-timeGridWeek-view table .fc-daygrid-day {
-  width: 150px;
+  width: 154px;
   height: 49px;
 }
 .fc-timeGridWeek-view table thead .fc-timegrid-axis {
@@ -364,7 +364,7 @@ thead tr {
   border-right: none !important;
 }
 .fc-timeGridWeek-view table thead th {
-  width: 150px;
+  width: 154px;
   height: 49px;
 }
 .fc-timeGridWeek-view table .fc-timegrid-slot-minor {
