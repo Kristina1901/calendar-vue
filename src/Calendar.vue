@@ -152,7 +152,7 @@ function handleDateSelect(selectInfo: any) {
   if (cell) {
     cell.classList.add("selected-cell");
     const rect = cell.getBoundingClientRect();
-    modalX.value = rect.left + window.scrollX / 2 - 200;
+    modalX.value = rect.left + window.scrollX + rect.width / 2 - 280;
     modalY.value = rect.top + rect.height + window.scrollY - 21;
   }
 }
@@ -206,8 +206,8 @@ function handleEventClick(clickInfo: EventClickArg) {
   eventTitle.value = clickInfo.event.title;
   isModalOpen.value = true;
   removeSelectedCellClass();
-  modalX.value = clickInfo.jsEvent.clientX - 250;
-  modalY.value = clickInfo.jsEvent.clientY + 120;
+  modalX.value = clickInfo.jsEvent.clientX - 260;
+  modalY.value = clickInfo.jsEvent.clientY + 260;
   clickInfo.el.classList.add("selected-event");
 }
 function handleEvents(events: EventApi[]) {
@@ -600,5 +600,8 @@ thead tr {
 .fc .fc-highlight {
   background: transparent !important;
   box-shadow: 0px 3px 6px #00000029;
+}
+.fc-list-sticky .buttons {
+  display: none;
 }
 </style>
